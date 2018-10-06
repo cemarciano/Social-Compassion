@@ -1,5 +1,6 @@
 from fetch import Fetch
 
 api = Fetch()
-api.fetchTweets("%23dilma")
-api.printTweets()
+api.printMostUsed(12)
+#api.fetchTweets("%23dilma")
+#api.printTweets()

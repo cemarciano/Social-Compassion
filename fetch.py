@@ -2,6 +2,7 @@ import pymongo
 from pymongo import MongoClient
 import json
 import twitter
+from bson.son import SON
 from pprint import pprint
 
 
@@ -65,4 +66,27 @@ class Fetch():
 				print('Created Date:-',document["created_at"])
 			except:
 				print("Error in Encoding")
+				pass
+
+	def printMostUsed(self, count=5):
+
+		# Prepare query:
+		query = [
+			{ "$project": { "words": { "$split": ["$text", " "] }	} },
+			{ "$unwind": { "path": "$words" } },
+			{ "$group": { "_id": "$words", "count": { "$sum": 1 } } }
+		]
+
+		# Retrieve count of words:
+		results = list(self.tweet_collection.aggregate(query))
+
+		# Sort result (so most used words are displayed first):
+		results.sort(key=lambda x: x["count"], reverse=True)
+
+		# Print requested results:
+		for i in range(count):
+			try:
+				pprint(results[i])
+			except:
+				print("Error in encoding")
 				pass
