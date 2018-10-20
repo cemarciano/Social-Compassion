@@ -73,8 +73,10 @@ class Fetch():
 					pass
 
 
-	# Function to print the first *count* most used words in the db collection:
-	def printMostUsed(self, count=5, saveToFile=False, chosenWords=None):
+	# Function to retrieve a dictionary with the most used words in the db collection.
+	# *chosenWords* is a list of words that you want to actually retain in your dictionary. By
+	# default, it is passed as None, which retains every word:
+	def getMostUsed(self, count=5, saveToFile=False, chosenWords=None):
 
 		# Prepare query:
 		query = [
@@ -94,15 +96,23 @@ class Fetch():
 		if (saveToFile == True):
 			file = open('syria.txt', "a")
 
+		# Prepares a dictionary of frequencies:
+		frequencies = {}
+
 		# Print requested results:
 		for i in range(count):
 			try:
-				print ( 'Word \"%s\" appears %s times' % ( results[i]["_id"], results[i]["count"] ) )
 				# Checks if saving to file is enabled:
 				if (saveToFile == True):
 					if (results[i]["_id"] in chosenWords):
 						for j in range(results[i]["count"]):
 							file.write(results[i]["_id"] + " ")
+				# Adds to dictionary:
+				if (results[i]["_id"] in chosenWords) or (chosenWords == None):
+					frequencies[results[i]["_id"]] = results[i]["count"]
 			except:
 				print("Error in encoding when printing most used words")
 				pass
+
+		# Returns the dictionary containing the selected words:
+		return frequencies
