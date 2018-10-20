@@ -76,7 +76,7 @@ class Fetch():
 	# Function to retrieve a dictionary with the most used words in the db collection.
 	# *chosenWords* is a list of words that you want to actually retain in your dictionary. By
 	# default, it is passed as None, which retains every word:
-	def getMostUsed(self, count=5, saveToFile=False, chosenWords=None):
+	def getMostUsed(self, count=5, saveToFile=False, toPrint=False, chosenWords=None, smooth=0):
 
 		# Prepare query:
 		query = [
@@ -102,6 +102,8 @@ class Fetch():
 		# Print requested results:
 		for i in range(count):
 			try:
+				if (toPrint == True):
+					print ( 'Word \"%s\" appears %s times' % ( results[i]["_id"], results[i]["count"] ) )
 				# Checks if saving to file is enabled:
 				if (saveToFile == True):
 					if (results[i]["_id"] in chosenWords):
@@ -109,7 +111,13 @@ class Fetch():
 							file.write(results[i]["_id"] + " ")
 				# Adds to dictionary:
 				if (results[i]["_id"] in chosenWords) or (chosenWords == None):
-					frequencies[results[i]["_id"]] = results[i]["count"]
+					# Value to be added to dictionary (how many times a word has appeared):
+					valueToDict = results[i]["count"]
+					# Checks if smoothing is enable. This makes words that appear a lot become smaller:
+					if (smooth != 0):
+						frac = results[i]["count"] / smooth
+						valueToDict -= results[i]["count"]*(frac**2)
+					frequencies[results[i]["_id"]] = valueToDict
 			except:
 				print("Error in encoding when printing most used words")
 				pass

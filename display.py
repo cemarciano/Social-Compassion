@@ -1,9 +1,6 @@
 import numpy as np
 
-import os
-import re
 from PIL import Image
-from os import path
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import random
@@ -37,7 +34,7 @@ class Display():
 		# Function to make words in gray scale:
 		def grey_color_func(word, font_size, position, orientation, random_state=None,
 		                    **kwargs):
-		    return "hsl(0, 0%%, %d%%)" % random.randint(60, 100)
+		    return "hsl(0, 100%%, %d%%)" % random.randint(40, 80)
 
 		# Produces image:
 		default_colors = self.wc.to_array()
