@@ -74,7 +74,7 @@ class Fetch():
 
 
 	# Function to print the first *count* most used words in the db collection:
-	def printMostUsed(self, count=5):
+	def printMostUsed(self, count=5, saveToFile=False, chosenWords=None):
 
 		# Prepare query:
 		query = [
@@ -89,10 +89,20 @@ class Fetch():
 		# Sort result (so most used words are displayed first):
 		results.sort(key=lambda x: x["count"], reverse=True)
 
+		# Prepares a file in case we should save to it:
+		file = None
+		if (saveToFile == True):
+			file = open('syria.txt', "a")
+
 		# Print requested results:
 		for i in range(count):
 			try:
 				print ( 'Word \"%s\" appears %s times' % ( results[i]["_id"], results[i]["count"] ) )
+				# Checks if saving to file is enabled:
+				if (saveToFile == True):
+					if (results[i]["_id"] in chosenWords):
+						for j in range(results[i]["count"]):
+							file.write(results[i]["_id"] + " ")
 			except:
 				print("Error in encoding when printing most used words")
 				pass
