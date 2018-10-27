@@ -33,8 +33,18 @@ if __name__ == '__main__':
 					"tweet", "tears", "wrong", "hacer", "triste", "watching", "porque", "cry", "word", "mean", "sleep", "night", "enough",
 					"amor", "victims", "money", "done", "man", "affected", "untuk", "again", "mercy", "happen", "yet", "cruel", "moment",
 					"year", "poder", "hurts", "estamos", "humans", "parar", "understand", "imagine"]
+
+	# Calculates most used words in tweets:
+	fetchy.calculateMostUsed(700)#, smooth=12000)
+
+	# Filters out unwanted words:
+	fetchy.filterMostUsed(chosenWords)
+
+	# Saves data to JSON file:
+	fetchy.jsonMostUsed()
+
 	# Obtains a dictionary where words are keys and values are how many times they appear in the tweet texts:
-	frequenciesDict = fetchy.getMostUsed(700, chosenWords=chosenWords, toPrint=True, smooth=12000)
+	frequenciesDict = fetchy.getMostUsed();
 
 	# Initializes Word Cloud using the frequency dictionary:
 	disp = Display(frequenciesDict, maskPath="Visualization/machine_gun.png")

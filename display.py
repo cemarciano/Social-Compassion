@@ -5,6 +5,9 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import random
 
+import mpld3
+from mpld3 import plugins, utils
+
 
 
 class Display():
@@ -31,20 +34,17 @@ class Display():
 	# Produces an image containing the visualization:
 	def produceImage(self, name):
 
-		# Function to make words in gray scale:
+		# Function to make words in red scale:
 		def grey_color_func(word, font_size, position, orientation, random_state=None,
 		                    **kwargs):
 		    return "hsl(0, 100%%, %d%%)" % random.randint(40, 80)
 
 		# Produces image:
 		default_colors = self.wc.to_array()
-		plt.title("Custom colors")
+		plt.title("#PrayForSyria")
 		plt.imshow(self.wc.recolor(color_func=grey_color_func, random_state=500),
 		           interpolation="bilinear")
 		self.wc.to_file(name)
 		plt.axis("off")
-		plt.figure()
-		plt.title("Default colors")
-		plt.imshow(default_colors, interpolation="bilinear")
-		plt.axis("off")
-		plt.show()
+		mpld3.show()
+		#plt.show()

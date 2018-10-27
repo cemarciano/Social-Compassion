@@ -6,6 +6,7 @@ import pymongo
 import sys
 import codecs
 import json
+import copy
 
 
 
@@ -16,6 +17,8 @@ class Fetch():
 
 		# Database handler:
 		self.db = None
+		# Dictionary of most used words:
+		self.mostUsed = {}
 
 		# Connects with the database:
 		client = pymongo.MongoClient()
@@ -73,10 +76,62 @@ class Fetch():
 					pass
 
 
-	# Function to retrieve a dictionary with the most used words in the db collection.
+	# Function to retrieve a dictionary with most used words. calculateMostUsed() must have been called before.
 	# *chosenWords* is a list of words that you want to actually retain in your dictionary. By
 	# default, it is passed as None, which retains every word:
-	def getMostUsed(self, count=5, saveToFile=False, toPrint=False, chosenWords=None, smooth=0):
+	def getMostUsed(self):
+		# Returns frequency of words:
+		return self.mostUsed
+
+
+	# Function to remove any word from the dictionary that is not desired:
+	def filterMostUsed(self, chosenWords):
+		# Retrieves frequency of words:
+		for word in list(self.mostUsed):
+			if word not in chosenWords:
+				del self.mostUsed[word]
+
+
+	# Function to save most used words into a file. calculateMostUsed() must have been called before.
+	def saveMostUsed(self):
+		# Prepares a file:
+		file = open('syria.txt', "a")
+		# Loops through dictionary:
+		for word in self.mostUsed:
+			for j in range(self.mostUsed[word]):
+				file.write(word + " ")
+
+
+
+
+	# Function to print most used words. calculateMostUsed() must have been called before.
+	def printMostUsed(self):
+		# Loops through dictionary:
+		for word in self.mostUsed:
+			print ( 'Word \"%s\" appears %s times' % ( results[i]["_id"], results[i]["count"] ) )
+
+
+
+	# Function to save most used words into a JSON file. calculateMostUsed() must have been called before.
+	def jsonMostUsed(self):
+		# Prepares list of objects:
+		list = []
+		# Iterates through frequencies:
+		for word in self.mostUsed:
+			obj = {
+				"name" : word,
+				"value" : self.mostUsed[word]
+			}
+			# Appends object to list:
+			list.append(obj)
+		# Saves to file:
+		with open('syria.json', 'w') as fp:
+			json.dump(list, fp)
+
+
+
+	# Function to retrieve a dictionary with the most used words in the db collection.
+	def calculateMostUsed(self, count=5, smooth=0):
 
 		# Prepare query:
 		query = [
@@ -91,36 +146,12 @@ class Fetch():
 		# Sort result (so most used words are displayed first):
 		results.sort(key=lambda x: x["count"], reverse=True)
 
-		# Prepares a file in case we should save to it:
-		file = None
-		if (saveToFile == True):
-			file = open('syria.txt', "a")
-
-		# Prepares a dictionary of frequencies:
-		frequencies = {}
-
 		# Print requested results:
 		for i in range(count):
-			try:
-				if (toPrint == True):
-					print ( 'Word \"%s\" appears %s times' % ( results[i]["_id"], results[i]["count"] ) )
-				# Checks if saving to file is enabled:
-				if (saveToFile == True):
-					if (results[i]["_id"] in chosenWords):
-						for j in range(results[i]["count"]):
-							file.write(results[i]["_id"] + " ")
-				# Adds to dictionary:
-				if (results[i]["_id"] in chosenWords) or (chosenWords == None):
-					# Value to be added to dictionary (how many times a word has appeared):
-					valueToDict = results[i]["count"]
-					# Checks if smoothing is enable. This makes words that appear a lot become smaller:
-					if (smooth != 0):
-						frac = results[i]["count"] / smooth
-						valueToDict -= results[i]["count"]*(frac**2)
-					frequencies[results[i]["_id"]] = valueToDict
-			except:
-				print("Error in encoding when printing most used words")
-				pass
-
-		# Returns the dictionary containing the selected words:
-		return frequencies
+			# Value to be added to dictionary (how many times a word has appeared):
+			valueToDict = results[i]["count"]
+			# Checks if smoothing is enable. This makes words that appear a lot become smaller:
+			if (smooth != 0):
+				frac = results[i]["count"] / smooth
+				valueToDict -= results[i]["count"]*(frac**2)
+			self.mostUsed[results[i]["_id"]] = valueToDict
