@@ -6,15 +6,12 @@
 <script src="https://d3js.org/d3.v5.min.js"></script>
 
 <head>
-    <title>News wordclouds - Tóp. Esp. Banco de Dados I</title>
+    <title>Social Compassion</title>
     <meta charset="UTF-8">
 </head>
 
 <body>
     <script type="text/javascript">
-        var countryMasks = {
-            "syria": "machine_gun.png"
-        };
 
 		var shapesParams = {
 			"machine_gun": {
@@ -79,7 +76,7 @@
             var wordclouds = []
 
             // Asynchronous data loading
-            jQuery.get({ url: 'entities.json', cache: false }).done(function (data) {
+            jQuery.get({ url: 'data.json', cache: false }).done(function (data) {
                 //data = JSON.parse(data);
 
 
