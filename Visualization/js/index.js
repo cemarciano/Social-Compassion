@@ -68,7 +68,7 @@ function loadData(shape) {
 			// Set wordcloud click callback
 			wordcloud.on('click', function (params) {
 				console.log(params.data.name, params.data.value, params.dataIndex);
-				loadData("syria_map")
+				loadData("ma2")
 			});
 
 			// Add wordcloud to list
