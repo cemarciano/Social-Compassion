@@ -1,9 +1,7 @@
 // Variable to only display current rain when window resizes:
-var totalRains = 0;
+var currentRain = null;
 
-function createRain(currentId){
-
-	totalRains += 1;
+function createRain(){
 
 	var canvas = $('#canvas')[0];
 	canvas.width = window.innerWidth;
@@ -37,15 +35,13 @@ function createRain(currentId){
 
 		function draw() {
 			// Only creates more raindrops if this is the current rain:
-			if (totalRains == currentId + 1){
-				ctx.clearRect(0, 0, w, h);
-				for (var c = 0; c < particles.length; c++) {
-					var p = particles[c];
-					ctx.beginPath();
-					ctx.moveTo(p.x, p.y);
-					ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
-					ctx.stroke();
-				}
+			ctx.clearRect(0, 0, w, h);
+			for (var c = 0; c < particles.length; c++) {
+				var p = particles[c];
+				ctx.beginPath();
+				ctx.moveTo(p.x, p.y);
+				ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
+				ctx.stroke();
 			}
 			move();
 		}
@@ -62,7 +58,11 @@ function createRain(currentId){
 			}
 		}
 
-		setInterval(draw, 30);
+        if (currentRain != null){
+            clearInterval(currentRain)
+        }
+
+		currentRain = setInterval(draw, 30);
 
 	}
 };
@@ -70,5 +70,5 @@ function createRain(currentId){
 
 // Makes rain adjust to window resizes:
 window.onresize = function() {
-	createRain(totalRains);
+	createRain();
 }

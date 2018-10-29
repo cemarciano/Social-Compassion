@@ -68,7 +68,7 @@ function loadData(shape) {
 			// Set wordcloud click callback
 			wordcloud.on('click', function (params) {
 				console.log(params.data.name, params.data.value, params.dataIndex);
-				loadData("bombing")
+				loadData("syria_map")
 			});
 
 			// Add wordcloud to list
@@ -105,6 +105,6 @@ $(document).ready(function() {
 	loadData("machine_gun");
 
 	// Create rain effect:
-	createRain(0);
+	createRain();
 
 });
