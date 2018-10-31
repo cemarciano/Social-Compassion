@@ -6,10 +6,8 @@ function getCountrySeries(wordcloud) {
 		name: wordcloud._dom.id,
 		type: 'wordCloud',
 		shape: 'circle',
-		left: '-272px',
-		top: '-205px',
-        width: "2180px",
-    	height: "1230px",
+		left: 'center',
+		top: 'center',
 		sizeRange: [11, 130],
 		rotationRange: [0, 90],
 		rotationStep: 90,
@@ -70,7 +68,8 @@ function loadData(shape) {
 			// Set wordcloud click callback
 			wordcloud.on('click', function (params) {
 				console.log(params.data.name, params.data.value, params.dataIndex);
-				loadData("ma3")
+				loadData("bombing");
+                changeBackground();
 			});
 
 			// Add wordcloud to list
@@ -100,11 +99,20 @@ function loadData(shape) {
 	});
 }
 
+function changeBackground() {
+
+    $("#rain").fadeOut(2000);
+
+    $("#starry").fadeIn(2000);
+}
+
 
 $(document).ready(function() {
 
+    $("#starry").hide();
+
 	// Load data for the first time
-	loadData("ma3");
+	loadData("machine_gun");
 
 	// Create rain effect:
 	createRain();

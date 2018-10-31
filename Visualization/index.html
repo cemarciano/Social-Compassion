@@ -2,6 +2,7 @@
 <html>
 <!-- CSS Files -->
 <link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/starry.css">
 <!-- JS Files -->
 <script src="js/echarts.min.js"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
@@ -22,11 +23,19 @@
 	<div id="cloud">
 	</div>
 
-	<!-- Canvas where rain effect is drawn: -->
-	<canvas id="canvas">
-	</canvas>
+    <!-- Starry sky animation: -->
+    <div id=starry>
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="clouds"></div>
+    </div>
 
-    <img id="bg-img" src="../man.jpg"/>
+	<!-- Rain animation: -->
+    <div id="rain">
+    	<canvas id="canvas"></canvas>
+    </div>
+
+    <!--<img id="bg-img" src="../man.jpg"/>-->
 
 
 </body>

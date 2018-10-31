@@ -32,5 +32,4 @@ for i in range(3):
 
 plt.show()
 
-plt.imshow(images[2*3+2],'gray')
-plt.savefig("result.png")
+cv2.imwrite('result.png',th3)

@@ -1,5 +1,8 @@
 body {
 	background-color: #222222;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
 }
 
 #vis-wrapper {
@@ -21,6 +24,12 @@ body {
 }
 
 #cloud {
+    z-index: 20;
+    -webkit-animation: breathing 12s ease-out infinite normal;
+    animation: breathing 12s ease-out infinite normal;
+}
+
+#starry {
     z-index: 20;
 }
 
@@ -49,7 +58,7 @@ body {
 	height: 900px;
 }
 
-#ma3 {
+#ma4 {
     width: 1920px;
     height: 1080px;
 }
@@ -57,4 +66,47 @@ body {
 #syria_map {
 	width: 1200px;
 	height: 1000px;
+}
+
+
+@-webkit-keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+
+  50% {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+
+
+  100% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+
+@keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+
+  50% {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+
+
+
+  100% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
 }
