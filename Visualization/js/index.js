@@ -43,7 +43,7 @@ function loadData(shape) {
 	var wordclouds = []
 
 	// Asynchronous data loading
-	jQuery.get({ url: 'data.json', cache: false }).done(function (data) {
+	jQuery.get({ url: 'Visualization/data.json', cache: false }).done(function (data) {
 		//data = JSON.parse(data);
 
 
