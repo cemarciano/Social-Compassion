@@ -1,13 +1,43 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>A web page that points a browser to a different page after 2 seconds</title>
-        <meta http-equiv="refresh" content="0; URL=/Social-Compassion/Visualization">
-        <meta name="keywords" content="automatic redirection">
-    </head>
-    <body>
-        If your browser doesn't automatically go there within a few seconds,
-        you may want to go to
-        <a href="/Social-Compassion/Visualization">the destination</a>
-        manually.
-    </body>
+<!-- CSS Files -->
+<link rel="stylesheet" href="Visualization/css/index.css">
+<link rel="stylesheet" href="Visualization/css/starry.css">
+<!-- JS Files -->
+<script src="Visualization/js/echarts.min.js"></script>
+<script src="Visualization/js/jquery-3.3.1.min.js"></script>
+<script src="Visualization/js/echarts-wordcloud.min.js"></script>
+<script src="Visualization/js/rain.js"></script>
+<script src="Visualization/js/index.js"></script>
+
+
+<head>
+    <title>Social Compassion</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+
+	<!-- Word cloud: -->
+	<div id="cloud">
+	</div>
+
+    <!-- Starry sky animation: -->
+    <div id=starry>
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="clouds"></div>
+    </div>
+
+	<!-- Rain animation: -->
+    <div id="rain">
+    	<canvas id="canvas"></canvas>
+    </div>
+
+    <!--<img id="bg-img" src="../man.jpg"/>-->
+
+
+</body>
+
 </html>
