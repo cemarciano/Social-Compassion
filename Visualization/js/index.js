@@ -77,7 +77,7 @@ function loadData(shape) {
 
 			// Create image for country word cloud mask
 			var maskImage = new Image();
-			maskImage.src = 'img/' + shape + ".png";
+			maskImage.src = 'Visualization/img/' + shape + ".png";
 
 			// LOad mask image
 			maskImage.onload = function () {
