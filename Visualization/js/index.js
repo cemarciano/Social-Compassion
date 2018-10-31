@@ -6,8 +6,10 @@ function getCountrySeries(wordcloud) {
 		name: wordcloud._dom.id,
 		type: 'wordCloud',
 		shape: 'circle',
-		left: 'center',
-		top: 'center',
+		left: '-272px',
+		top: '-205px',
+        width: "2180px",
+    	height: "1230px",
 		sizeRange: [11, 130],
 		rotationRange: [0, 90],
 		rotationStep: 90,
@@ -68,7 +70,7 @@ function loadData(shape) {
 			// Set wordcloud click callback
 			wordcloud.on('click', function (params) {
 				console.log(params.data.name, params.data.value, params.dataIndex);
-				loadData("ma2")
+				loadData("ma3")
 			});
 
 			// Add wordcloud to list
@@ -102,7 +104,7 @@ function loadData(shape) {
 $(document).ready(function() {
 
 	// Load data for the first time
-	loadData("machine_gun");
+	loadData("ma3");
 
 	// Create rain effect:
 	createRain();
