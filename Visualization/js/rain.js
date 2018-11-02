@@ -67,6 +67,12 @@ function createRain(){
 	}
 };
 
+function destroyRain(){
+	if (currentRain != null){
+		clearInterval(currentRain)
+	}
+}
+
 
 // Makes rain adjust to window resizes:
 window.onresize = function() {

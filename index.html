@@ -9,6 +9,11 @@
 <script src="Visualization/js/echarts-wordcloud.min.js"></script>
 <script src="Visualization/js/rain.js"></script>
 <script src="Visualization/js/index.js"></script>
+<script>
+window.onload = function() {
+  var context = new AudioContext();
+}
+</script>
 
 
 <head>
@@ -18,6 +23,8 @@
 
 <body>
 
+	<div id="audio-toggle"></div>
+	<audio id="grunty1" src="Music/grunty1.mp3"></audio>
 
 	<!-- Word cloud: -->
 	<div id="cloud">
@@ -35,7 +42,7 @@
     	<canvas id="canvas"></canvas>
     </div>
 
-    <!--<img id="bg-img" src="../man.jpg"/>-->
+
 
 
 </body>

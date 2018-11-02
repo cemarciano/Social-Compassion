@@ -1,0 +1,20 @@
+from gensim.models import KeyedVectors
+
+# Load pretrained model (since intermediate data is not included, the model cannot be refined with additional data)
+model = KeyedVectors.load_word2vec_format('Google Model/GoogleNews-vectors-negative300.bin', binary=True)
+
+print("")
+print("People and love:")
+print("Similarity: " + str(model.similarity('people', 'love')))
+print("")
+print("People and plane:")
+print("Similarity: " + str(model.similarity('people', 'plane')))
+print("")
+print("People and bombing:")
+print("Similarity: " + str(model.similarity('people', 'bombing')))
+print("")
+print("People and heart:")
+print("Similarity: " + str(model.similarity('people', 'heart')))
+print("")
+print("Heart and <3:")
+print("Similarity: " + str(model.similarity('heart', '<3')))

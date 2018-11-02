@@ -102,10 +102,12 @@ function loadData(shape) {
 function changeBackground() {
 
     $("#rain").fadeOut(2000);
-
+	destroyRain();
     $("#starry").fadeIn(2000);
+	changeSongs("grunty1", "grunty2");
 }
 
+var mySound;
 
 $(document).ready(function() {
 
@@ -117,4 +119,25 @@ $(document).ready(function() {
 	// Create rain effect:
 	createRain();
 
+	$("#audio-toggle").click(function(){
+		$("#grunty1")[0].play();
+	});
+
 });
+
+
+function changeSongs(current, next){
+	// Creates an audio element for next song:
+	var nextDOM = $("<audio></audio>").attr("src", "Music/" + next + ".mp3");
+	// Adds next song to DOM:
+	$("body").append(nextDOM);
+	// Prepares next song:
+	nextDOM[0].volume = 0;
+	nextDOM.trigger("play");
+	// Selects current song from DOM:
+	var currentDOM = $("#"+current);
+	// Activates fade:
+	nextDOM[0].currentTime = currentDOM[0].currentTime + 0.2;
+	currentDOM.animate({volume: 0}, 8000);
+	nextDOM.animate({volume: 1}, 8000);
+}

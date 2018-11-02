@@ -1,0 +1,11 @@
+Rain effect:
+https://www.html5canvastutorials.com/advanced/html5-canvas-rain-effect/
+
+Starry sky:
+https://codepen.io/WebSonick/pen/vjmgu
+
+
+
+
+https://www.maissan.net/articles/simulating-vines
+http://www.craftymind.com/factory/html5video/CanvasVideo.html
