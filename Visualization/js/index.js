@@ -8,15 +8,13 @@ var backgroundFadeTime = 2000;			// Amount in ms for background to fade
 // Executes when page finishes loading:
 $(document).ready(function() {
 
-    $("#starry").hide();
-
 	// Loads data for the first time:
 	loadData(currentShape);
 	changeBackground(currentShape);
 
 	// Adds functionality to audio toggle:
 	$("#audio-toggle").click(function(){
-		$("#grunty1")[0].play();
+		$("#"+currentShape+"-audio")[0].play();
 	});
 
 });
@@ -182,7 +180,7 @@ function changeSongs(next){
 	nextDOM[0].volume = 0;
 	nextDOM.trigger("play");
 	// Selects current song from DOM:
-	var currentDOM = $("#"+currentShape);
+	var currentDOM = $("#"+currentShape+"-audio");
 	// Activates fade:
 	nextDOM[0].currentTime = currentDOM[0].currentTime + 0.1;
 	currentDOM.animate({volume: 0}, musicFadeTime, function(){currentDOM.remove();});
