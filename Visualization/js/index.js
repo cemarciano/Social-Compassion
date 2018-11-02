@@ -1,5 +1,28 @@
+// Global variables
+var currentShape = "machine_gun";		// Current shape being shown
+var musicFadeTime = 5000;				// Amount in ms for music to fade
+var backgroundFadeTime = 2000;			// Amount in ms for background to fade
 
 
+
+// Executes when page finishes loading:
+$(document).ready(function() {
+
+    $("#starry").hide();
+
+	// Loads data for the first time:
+	loadData(currentShape);
+	changeBackground(currentShape);
+
+	// Adds functionality to audio toggle:
+	$("#audio-toggle").click(function(){
+		$("#grunty1")[0].play();
+	});
+
+});
+
+
+// Wordcloud handler:
 function getCountrySeries(wordcloud) {
 
 	var ret = {
@@ -31,6 +54,8 @@ function getCountrySeries(wordcloud) {
 	return ret;
 }
 
+
+// Wordcloud handler:
 function loadData(shape) {
 	// Get cloud element
 	var cloud = document.getElementById("cloud");
@@ -69,7 +94,8 @@ function loadData(shape) {
 			wordcloud.on('click', function (params) {
 				console.log(params.data.name, params.data.value, params.dataIndex);
 				loadData("bombing");
-                changeBackground();
+                changeBackground("bombing");
+				changeSongs("grunty2");
 			});
 
 			// Add wordcloud to list
@@ -99,34 +125,55 @@ function loadData(shape) {
 	});
 }
 
-function changeBackground() {
 
-    $("#rain").fadeOut(2000);
-	destroyRain();
-    $("#starry").fadeIn(2000);
-	changeSongs("grunty1", "grunty2");
-}
 
-var mySound;
+// Loads the *next* background, taking care of the fade transition:
+function changeBackground(next) {
 
-$(document).ready(function() {
+	console.log("Changing to " + next);
 
-    $("#starry").hide();
-
-	// Load data for the first time
-	loadData("machine_gun");
-
-	// Create rain effect:
-	createRain();
-
-	$("#audio-toggle").click(function(){
-		$("#grunty1")[0].play();
+	// Destroys previous background:
+    $("#background").fadeOut(backgroundFadeTime, function(){
+		// Destroys old background:
+		$("#background").remove();
+		// Additional commands:
+		if (next != "machine_gun") {
+			destroyRain();
+		}
 	});
 
-});
+	// Creates new background:
+	var nextBackground = $("<div></div>").attr("id", "next-background");
+	nextBackground.attr("class", "bg");
+	nextBackground.hide();
+	// Appends next background to body:
+	$("body").append(nextBackground);
+	// Calls for fade in:
+	nextBackground.fadeIn(backgroundFadeTime, function(){
+		// Changes id to become old background:
+		$("#next-background").attr("id", "background");
+	});
+
+	// Checks for additional actions:
+	if (next == "machine_gun"){
+		var canvas = $("<canvas></canvas>").attr("id", "canvas");
+		nextBackground.append(canvas);
+		$("body").append()
+		createRain();
+	} else if (next == "bombing"){
+		var div1 = $("<div></div>").attr("class", "stars");
+		var div2 = $("<div></div>").attr("class", "twinkling");
+		var div3 = $("<div></div>").attr("class", "clouds");
+		nextBackground.append([div1, div2, div3]);
+	}
+
+}
 
 
-function changeSongs(current, next){
+
+
+// Loads the *next* song, taking care of the fade transition:
+function changeSongs(next){
 	// Creates an audio element for next song:
 	var nextDOM = $("<audio></audio>").attr("src", "Music/" + next + ".mp3");
 	// Adds next song to DOM:
@@ -135,9 +182,9 @@ function changeSongs(current, next){
 	nextDOM[0].volume = 0;
 	nextDOM.trigger("play");
 	// Selects current song from DOM:
-	var currentDOM = $("#"+current);
+	var currentDOM = $("#"+currentShape);
 	// Activates fade:
-	nextDOM[0].currentTime = currentDOM[0].currentTime + 0.2;
-	currentDOM.animate({volume: 0}, 8000);
-	nextDOM.animate({volume: 1}, 8000);
+	nextDOM[0].currentTime = currentDOM[0].currentTime + 0.1;
+	currentDOM.animate({volume: 0}, musicFadeTime, function(){currentDOM.remove();});
+	nextDOM.animate({volume: 1}, musicFadeTime);
 }
