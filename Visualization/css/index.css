@@ -5,16 +5,6 @@ body {
     overflow: hidden;
 }
 
-#audio-toggle {
-	position: absolute;
-	top: 93%;
-	left: 1%;
-	background-image: url("../../audio.png");
-	background-size: contain;
-	width: 40px;
-	height: 40px;
-	z-index: 100;
-}
 
 #vis-wrapper {
     width: 100%;
@@ -22,7 +12,7 @@ body {
 }
 
 
-#bg-img, #cloud {
+#bg-img, #cloud, #leaves, #vines {
     position: absolute;
     top: 0;
     left: 0;
@@ -56,8 +46,9 @@ body {
 }
 
 #heart {
-	width: 1100px;
-	height: 900px;
+	width: 1200px;
+	height: 1000px;
+	margin-left: 350px;
 }
 
 #ma4 {

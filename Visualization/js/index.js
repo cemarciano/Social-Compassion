@@ -1,7 +1,9 @@
 // Global variables
 var currentShape = "machine_gun";		// Current shape being shown
-var musicFadeTime = 5000;				// Amount in ms for music to fade
+var musicFadeTime = 500;				// Amount in ms for music to fade
 var backgroundFadeTime = 2000;			// Amount in ms for background to fade
+var music = {};							// Holds Howl objects, where music[shape] refers to the object of that shape
+var shapes = ["machine_gun", "bombing", "heart"]
 
 
 
@@ -12,9 +14,21 @@ $(document).ready(function() {
 	loadData(currentShape);
 	changeBackground(currentShape);
 
+	// Initializes music:
+	shapes.forEach(function(shape){
+		var autoplay;
+		(shape == currentShape) ? autoplay = true : autoplay = false;
+		music[shape] = new Howl({
+			src: ['Music/' + shape + '.mp3'],
+			autoplay: autoplay,
+			loop: true,
+			preload: true
+		});
+	});
+
 	// Adds functionality to audio toggle:
 	$("#audio-toggle").click(function(){
-		$("#"+currentShape+"-audio")[0].play();
+		music[currentShape].play();
 	});
 
 });
@@ -91,9 +105,18 @@ function loadData(shape) {
 			// Set wordcloud click callback
 			wordcloud.on('click', function (params) {
 				console.log(params.data.name, params.data.value, params.dataIndex);
-				loadData("bombing");
-                changeBackground("bombing");
-				changeSongs("grunty2");
+				var nextShape;
+				if (currentShape == "machine_gun"){
+					nextShape = "bombing";
+				} else if (currentShape == "bombing"){
+					nextShape = "heart";
+				} else {
+					return;
+				}
+				loadData(nextShape);
+                changeBackground(nextShape);
+				changeSongs(nextShape);
+				currentShape = nextShape;
 			});
 
 			// Add wordcloud to list
@@ -156,13 +179,17 @@ function changeBackground(next) {
 	if (next == "machine_gun"){
 		var canvas = $("<canvas></canvas>").attr("id", "canvas");
 		nextBackground.append(canvas);
-		$("body").append()
 		createRain();
 	} else if (next == "bombing"){
 		var div1 = $("<div></div>").attr("class", "stars");
 		var div2 = $("<div></div>").attr("class", "twinkling");
 		var div3 = $("<div></div>").attr("class", "clouds");
 		nextBackground.append([div1, div2, div3]);
+	} else if (next == "heart"){
+		var canvas1 = $("<canvas></canvas>").attr("id", "vines");
+		var canvas2 = $("<canvas></canvas>").attr("id", "leaves");
+		nextBackground.append([canvas1, canvas2]);
+		createVines();
 	}
 
 }
@@ -172,17 +199,12 @@ function changeBackground(next) {
 
 // Loads the *next* song, taking care of the fade transition:
 function changeSongs(next){
-	// Creates an audio element for next song:
-	var nextDOM = $("<audio></audio>").attr("src", "Music/" + next + ".mp3");
-	// Adds next song to DOM:
-	$("body").append(nextDOM);
-	// Prepares next song:
-	nextDOM[0].volume = 0;
-	nextDOM.trigger("play");
-	// Selects current song from DOM:
-	var currentDOM = $("#"+currentShape+"-audio");
-	// Activates fade:
-	nextDOM[0].currentTime = currentDOM[0].currentTime + 0.1;
-	currentDOM.animate({volume: 0}, musicFadeTime, function(){currentDOM.remove();});
-	nextDOM.animate({volume: 1}, musicFadeTime);
+	// Seeks new music to synch with current:
+	music[next].play();
+	music[next].seek(music[currentShape].seek());
+	// Fades current music:
+	music[currentShape].fade(1, 0, musicFadeTime);
+	// Fades new music:
+	music[next].fade(0, 1, musicFadeTime);
+
 }
