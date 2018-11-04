@@ -1,10 +1,14 @@
 // Global variables
 var currentShape = "machine_gun";		// Current shape being shown
-var musicFadeTime = 500;				// Amount in ms for music to fade
-var backgroundFadeTime = 2000;			// Amount in ms for background to fade
+var musicFadeTime = 5000;				// Amount in ms for music to fade
+var backgroundFadeTime = 3000;			// Amount in ms for background to fade
 var music = {};							// Holds Howl objects, where music[shape] refers to the object of that shape
-var shapes = ["machine_gun", "bombing", "heart"]
-
+var readyToTransition = false;			// Variable to keep track if all elements are done displaying so scene may transition to next view
+var shapes = [							// List of possible shapes
+				"machine_gun",
+				"bombing",
+				"heart"
+			];
 
 
 // Executes when page finishes loading:
@@ -22,14 +26,15 @@ $(document).ready(function() {
 			src: ['Music/' + shape + '.mp3'],
 			autoplay: autoplay,
 			loop: true,
-			preload: true
+			preload: true,
+			onfade: function(){
+				if(this.volume() == 0){
+					this.stop();
+				}
+			}
 		});
 	});
 
-	// Adds functionality to audio toggle:
-	$("#audio-toggle").click(function(){
-		music[currentShape].play();
-	});
 
 });
 
@@ -105,18 +110,24 @@ function loadData(shape) {
 			// Set wordcloud click callback
 			wordcloud.on('click', function (params) {
 				console.log(params.data.name, params.data.value, params.dataIndex);
-				var nextShape;
-				if (currentShape == "machine_gun"){
-					nextShape = "bombing";
-				} else if (currentShape == "bombing"){
-					nextShape = "heart";
-				} else {
-					return;
+				// Checks if scene is ready for a transition (i.e. elements from previous transition are done fading):
+				if (readyToTransition){
+					// Defines next view:
+					var nextShape;
+					if (currentShape == "machine_gun"){
+						nextShape = "bombing";
+					} else if (currentShape == "bombing"){
+						nextShape = "heart";
+					} else if (currentShape == "heart"){
+						nextShape = "machine_gun";
+					}
+					// Commands transition:
+					readyToTransition = false;
+					loadData(nextShape);
+	                changeBackground(nextShape);
+					changeSongs(nextShape);
+					currentShape = nextShape;
 				}
-				loadData(nextShape);
-                changeBackground(nextShape);
-				changeSongs(nextShape);
-				currentShape = nextShape;
 			});
 
 			// Add wordcloud to list
@@ -173,6 +184,8 @@ function changeBackground(next) {
 	nextBackground.fadeIn(backgroundFadeTime, function(){
 		// Changes id to become old background:
 		$("#next-background").attr("id", "background");
+		// Signals that the scene is done transitioning:
+		readyToTransition = true;
 	});
 
 	// Checks for additional actions:
