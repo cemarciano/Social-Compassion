@@ -1,6 +1,6 @@
 // Global variables
 var currentShape = "machine_gun";		// Current shape being shown
-var musicFadeTime = 5000;				// Amount in ms for music to fade
+var musicFadeTime = 6000;				// Amount in ms for music to fade
 var backgroundFadeTime = 3000;			// Amount in ms for background to fade
 var music = {};							// Holds Howl objects, where music[shape] refers to the object of that shape
 var readyToTransition = false;			// Variable to keep track if all elements are done displaying so scene may transition to next view
