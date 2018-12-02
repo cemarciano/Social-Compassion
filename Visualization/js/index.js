@@ -7,7 +7,9 @@ var readyToTransition = false;			// Variable to keep track if all elements are d
 var shapes = [							// List of possible shapes
 				"machine_gun",
 				"bombing",
-				"heart"
+				"heart",
+				"stop_sign",
+				"family"
 			];
 
 
@@ -112,19 +114,27 @@ function loadData(shape) {
 				console.log(params.data.name, params.data.value, params.dataIndex);
 				// Checks if scene is ready for a transition (i.e. elements from previous transition are done fading):
 				if (readyToTransition){
+					// By default, background will fade out as defined in header:
+					var customFadeOut = backgroundFadeTime;
 					// Defines next view:
 					var nextShape;
 					if (currentShape == "machine_gun"){
-						nextShape = "bombing";
+						customFadeOut = 1000;
+						nextShape = "family";
 					} else if (currentShape == "bombing"){
 						nextShape = "heart";
 					} else if (currentShape == "heart"){
 						nextShape = "machine_gun";
+					} else if (currentShape == "stop_sign"){
+						nextShape = "bombing";
+					} else if (currentShape == "family"){
+						customFadeOut = 500;
+						nextShape = "stop_sign"
 					}
 					// Commands transition:
 					readyToTransition = false;
 					loadData(nextShape);
-	                changeBackground(nextShape);
+	                changeBackground(nextShape, customFadeOut);
 					changeSongs(nextShape);
 					currentShape = nextShape;
 				}
@@ -160,19 +170,22 @@ function loadData(shape) {
 
 
 // Loads the *next* background, taking care of the fade transition:
-function changeBackground(next) {
+function changeBackground(next, customFadeOut) {
 
 	console.log("Changing to " + next);
 
 	// Destroys previous background:
-    $("#background").fadeOut(backgroundFadeTime, function(){
+    $("#background").fadeOut(customFadeOut, function(){
 		// Destroys old background:
 		$("#background").remove();
 		// Additional commands:
 		if (next != "machine_gun") {
 			destroyRain();
+		} else if ((next != "family") && (next != "stop_sign")){
+			destroyGarden();
 		}
 	});
+
 
 	// Creates new background:
 	var nextBackground = $("<div></div>").attr("id", "next-background");
@@ -181,12 +194,21 @@ function changeBackground(next) {
 	// Appends next background to body:
 	$("body").append(nextBackground);
 	// Calls for fade in:
-	nextBackground.fadeIn(backgroundFadeTime, function(){
-		// Changes id to become old background:
-		$("#next-background").attr("id", "background");
-		// Signals that the scene is done transitioning:
-		readyToTransition = true;
-	});
+	if (customFadeOut != backgroundFadeTime){
+		nextBackground.fadeIn(backgroundFadeTime*1.5, function(){
+			// Changes id to become old background:
+			$("#next-background").attr("id", "background");
+			// Signals that the scene is done transitioning:
+			readyToTransition = true;
+		});
+	} else {
+		nextBackground.fadeIn(backgroundFadeTime, function(){
+			// Changes id to become old background:
+			$("#next-background").attr("id", "background");
+			// Signals that the scene is done transitioning:
+			readyToTransition = true;
+		});
+	}
 
 	// Checks for additional actions:
 	if (next == "machine_gun"){
@@ -203,9 +225,19 @@ function changeBackground(next) {
 		var canvas2 = $("<canvas></canvas>").attr("id", "leaves");
 		nextBackground.append([canvas1, canvas2]);
 		createVines();
+	} else if (next == "stop_sign"){
+		var canvas = $("<canvas></canvas>").attr("id", "canvas-city");
+		nextBackground.append(canvas);
+		createBuildings();
+	} else if (next == "family"){
+		var canvas = $("<canvas></canvas>").attr("id", "canvas-garden");
+		nextBackground.append(canvas);
+		createGarden();
 	}
 
 }
+
+
 
 
 

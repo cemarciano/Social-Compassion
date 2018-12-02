@@ -33,6 +33,18 @@ body {
 	position: relative;
 }
 
+.preproc {
+	display: none;
+}
+
+#canvas-city {
+	opacity: 0.17;
+}
+
+#canvas-garden {
+	opacity: 0.3;
+}
+
 #machine_gun {
 	width: 1500px;
 	height: 1200px;
@@ -49,6 +61,26 @@ body {
 	width: 1200px;
 	height: 1000px;
 	margin-left: 350px;
+}
+
+#house {
+	width: 1000px;
+	height: 750px;
+	margin-left: 350px;
+}
+
+#family {
+	width: 1200px;
+	height: 900px;
+	margin-left: 350px;
+}
+
+#stop_sign {
+	margin-left: 470px;
+	margin-top: 50px;
+	width: 1000px;
+	height: 800px;
+	transform: scale(1.3);
 }
 
 #ma4 {
