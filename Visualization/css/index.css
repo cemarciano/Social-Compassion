@@ -45,6 +45,16 @@ body {
 	opacity: 0.3;
 }
 
+#div-fire {
+	background-image: url("../img/fire.gif");
+	width:100vw;
+    height:100vh;
+	background-repeat:no-repeat;
+	background-size:100%;
+	background-position:left bottom;
+	filter:blur(2px);
+}
+
 #machine_gun {
 	width: 1500px;
 	height: 1200px;
@@ -91,6 +101,7 @@ body {
 #syria_map {
 	width: 1200px;
 	height: 1000px;
+	margin-left: 400px;
 }
 
 

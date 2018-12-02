@@ -9,7 +9,8 @@ var shapes = [							// List of possible shapes
 				"bombing",
 				"heart",
 				"stop_sign",
-				"family"
+				"family",
+				"syria_map"
 			];
 
 
@@ -118,18 +119,21 @@ function loadData(shape) {
 					var customFadeOut = backgroundFadeTime;
 					// Defines next view:
 					var nextShape;
-					if (currentShape == "machine_gun"){
+					if (currentShape == "bombing"){
 						customFadeOut = 1000;
 						nextShape = "family";
-					} else if (currentShape == "bombing"){
-						nextShape = "heart";
+					} else if (currentShape == "machine_gun"){
+						customFadeOut = 400;
+						nextShape = "syria_map";
 					} else if (currentShape == "heart"){
-						nextShape = "machine_gun";
+						nextShape = "bombing";
 					} else if (currentShape == "stop_sign"){
 						nextShape = "bombing";
+					} else if (currentShape == "syria_map"){
+						nextShape = "heart";
 					} else if (currentShape == "family"){
 						customFadeOut = 500;
-						nextShape = "stop_sign"
+						nextShape = "stop_sign";
 					}
 					// Commands transition:
 					readyToTransition = false;
@@ -233,6 +237,9 @@ function changeBackground(next, customFadeOut) {
 		var canvas = $("<canvas></canvas>").attr("id", "canvas-garden");
 		nextBackground.append(canvas);
 		createGarden();
+	} else if (next == "syria_map"){
+		var div = $("<div></div>").attr("id", "div-fire");
+		nextBackground.append(div);
 	}
 
 }
