@@ -21,8 +21,19 @@ body {
 
 #cloud {
     z-index: 20;
-    -webkit-animation: breathing 12s ease-out infinite normal;
-    animation: breathing 12s ease-out infinite normal;
+    /*-webkit-animation: breathing 12s ease-out infinite normal;
+    animation: breathing 12s ease-out infinite normal;*/
+}
+
+.tweet {
+	color: white;
+	font-size: 30px;
+	font-family: "Font8";
+	user-select: none;
+	z-index: 80;
+	-webkit-animation: tweet 12s linear 1 forwards;
+	animation: tweet 12s linear 1 forwards;
+	position: absolute;
 }
 
 .bg {
@@ -144,5 +155,30 @@ body {
     -webkit-transform: scale(0.9);
     -ms-transform: scale(0.9);
     transform: scale(0.9);
+  }
+}
+
+
+@keyframes tweet {
+  0% {
+    transform: scale(0.8);
+	opacity: 0;
+  }
+
+
+  10% {
+    transform: scale(0.84);
+	opacity: 1;
+  }
+
+  90% {
+	  transform: scale(1.16);
+	  opacity: 1;
+  }
+
+
+  100% {
+    transform: scale(1.2);
+	opacity: 0;
   }
 }

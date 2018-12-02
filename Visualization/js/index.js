@@ -20,6 +20,10 @@ $(document).ready(function() {
 	// Loads data for the first time:
 	loadData(currentShape);
 	changeBackground(currentShape);
+	// Sets up tweet generation callback:
+	window.setInterval(function(){
+	  generateTweets();
+	}, 10000);
 
 	// Initializes music:
 	shapes.forEach(function(shape){
@@ -245,7 +249,35 @@ function changeBackground(next, customFadeOut) {
 }
 
 
-
+function generateTweets(){
+	// Creates elements:
+	var tweetDiv = $("<div></div>").attr("class", "tweet");
+	var tweetSpan = $("<span></span>").text("Acredito que devemos parar com a matança");
+	// Returns a number between 1 and 8:
+	var fontId = Math.floor((Math.random() * 8) + 1);
+	// Selects font size:
+	var fontSize = 40;
+	if (fontId == 1){
+		fontSize = 20;
+	} else if (fontId == 4){
+		fontSize = 30;
+	} else if (fontId == 5){
+		fontSize = 30;
+	} else if (fontId == 7){
+		fontSize = 50;
+	} else if (fontId == 8){
+		fontSize = 30;
+	}
+	// Applies formatting:
+	tweetDiv.css({
+		fontFamily: "Font"+fontId,
+	    fontSize: fontSize+"px",
+		left: "30px",
+		top: "30px"
+	});
+	tweetDiv.append(tweetSpan);
+	$("body").append(tweetDiv);
+}
 
 
 

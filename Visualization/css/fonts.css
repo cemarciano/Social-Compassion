@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Font1';
+  src: URL('fonts/bite_chocolate.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Font2';
+  src: URL('fonts/fall.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Font3';
+  src: URL('fonts/happy_ending.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Font4';
+  src: URL('fonts/janda_cheerful.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Font5';
+  src: URL('fonts/janda_stylish.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Font6';
+  src: URL('fonts/quick_kiss.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Font7';
+  src: URL('fonts/smile.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Font8';
+  src: URL('fonts/xiomara.ttf') format('truetype');
+}
