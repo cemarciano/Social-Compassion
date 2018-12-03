@@ -2,8 +2,10 @@
 var currentShape = "machine_gun";		// Current shape being shown
 var musicFadeTime = 6000;				// Amount in ms for music to fade
 var backgroundFadeTime = 3000;			// Amount in ms for background to fade
+var tweetInterval = 3500;
 var music = {};							// Holds Howl objects, where music[shape] refers to the object of that shape
 var readyToTransition = false;			// Variable to keep track if all elements are done displaying so scene may transition to next view
+window.posTabu = 0;						// Variable to hold last tweet generated position (so it wont be repeated)
 var shapes = [							// List of possible shapes
 				"machine_gun",
 				"bombing",
@@ -21,9 +23,9 @@ $(document).ready(function() {
 	loadData(currentShape);
 	changeBackground(currentShape);
 	// Sets up tweet generation callback:
-	window.setInterval(function(){
-	  generateTweets();
-	}, 10000);
+	console.log(posTabu);
+	var f = generateTweets;
+	window.setInterval(f, tweetInterval);
 
 	// Initializes music:
 	shapes.forEach(function(shape){
@@ -253,27 +255,64 @@ function generateTweets(){
 	// Creates elements:
 	var tweetDiv = $("<div></div>").attr("class", "tweet");
 	var tweetSpan = $("<span></span>").text("Acredito que devemos parar com a matança");
-	// Returns a number between 1 and 8:
+	// Generates font style (a number between 1 and 8):
 	var fontId = Math.floor((Math.random() * 8) + 1);
 	// Selects font size:
-	var fontSize = 40;
+	var fontSize = 2.08;
 	if (fontId == 1){
-		fontSize = 20;
+		fontSize = 1.04;
 	} else if (fontId == 4){
-		fontSize = 30;
+		fontSize = 1.56;
 	} else if (fontId == 5){
-		fontSize = 30;
+		fontSize = 1.56;
 	} else if (fontId == 7){
-		fontSize = 50;
+		fontSize = 2.6;
 	} else if (fontId == 8){
-		fontSize = 30;
+		fontSize = 1.56;
 	}
+	// Generates which pre-determined area of the screen to put the tweet (a number between 1 and 9), as long as it's not equal to previous position:
+	var posId = posTabu;
+	while (posId == posTabu){
+		posId = Math.floor((Math.random() * 9) + 1);
+	}
+	// Selects area:
+	var left, top;
+	if (posId == 1){
+		left = 3;
+		top = 6;
+	} else if (posId == 2){
+		left = 32;
+		top = 4;
+	} else if (posId == 3){
+		left = 65;
+		top = 6;
+	} else if (posId == 4){
+		left = 6;
+		top = 75;
+	} else if (posId == 5){
+		left = 9;
+		top = 90;
+	} else if (posId == 6){
+		left = 35;
+		top = 85;
+	} else if (posId == 7){
+	   left = 60;
+	   top = 80;
+	} else if (posId == 8){
+	   	left = 67;
+	   	top = 90;
+   	} else if (posId == 9){
+		left = 72;
+		top = 45;
+	}
+	// Saves last generated position:
+	posTabu = posId;
 	// Applies formatting:
 	tweetDiv.css({
 		fontFamily: "Font"+fontId,
-	    fontSize: fontSize+"px",
-		left: "30px",
-		top: "30px"
+	    fontSize: fontSize+"vw",
+		left: left+"vw",
+		top: top+"vh"
 	});
 	tweetDiv.append(tweetSpan);
 	$("body").append(tweetDiv);

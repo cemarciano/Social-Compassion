@@ -27,7 +27,7 @@ body {
 
 .tweet {
 	color: white;
-	font-size: 30px;
+	font-size: 1.56vw;
 	font-family: "Font8";
 	user-select: none;
 	z-index: 80;
@@ -61,58 +61,55 @@ body {
 	width:100vw;
     height:100vh;
 	background-repeat:no-repeat;
-	background-size:100%;
+	background-size: cover;
 	background-position:left bottom;
 	filter:blur(2px);
 }
 
 #machine_gun {
-	width: 1500px;
-	height: 1200px;
-	margin-top: -200px;
-	margin-left: 200px;
+	width: 78.125vw;
+	height: 111.111vh;
+	margin-top: -11.52vh;
+	margin-left: 10.41vw;
 }
 
 #bombing {
-	width: 1900px;
-	height: 1000px;
+	width: 98.96vw;
+	height: 92.59vh;
 }
 
 #heart {
-	width: 1200px;
-	height: 1000px;
-	margin-left: 350px;
+	width: 62.5vw;
+	height: 92.6vh;
+	margin-left: 18.2vw;
 }
 
 #house {
-	width: 1000px;
-	height: 750px;
-	margin-left: 350px;
+	width: 52.08vw;
+	height: 69.4vh;
+	margin-left: 18.2vw;
 }
 
 #family {
-	width: 1200px;
-	height: 900px;
-	margin-left: 350px;
+	width: 62.5vw;
+	height: 83.3vh;
+	margin-left: 18.2vw;
 }
 
 #stop_sign {
-	margin-left: 470px;
-	margin-top: 50px;
-	width: 1000px;
-	height: 800px;
+	margin-left: 24.48vw;
+	margin-top: 4.63vh;
+	width: 52.1vw;
+	height: 74.1vh;
 	transform: scale(1.3);
 }
 
-#ma4 {
-    width: 1920px;
-    height: 1080px;
-}
+
 
 #syria_map {
-	width: 1200px;
-	height: 1000px;
-	margin-left: 400px;
+	width: 62.5vw;
+	height: 92.6vh;
+	margin-left: 20.83vw;
 }
 
 
