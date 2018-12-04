@@ -1,4 +1,4 @@
-var leafColor = "#380042";
+var leafColor = "#604949";
 
 function createVines(){
    var canvas = document.getElementById('vines');

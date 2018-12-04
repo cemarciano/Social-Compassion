@@ -27,8 +27,6 @@ $(document).ready(function() {
 	changeBackground(currentShape);
 	// Sets up tweet generation callback:
 	console.log(posTabu);
-	var f = generateTweets;
-	window.setInterval(f, tweetInterval);
 
 	// Initializes music:
 	shapes.forEach(function(shape){
@@ -131,6 +129,14 @@ function generateCloud(shape) {
 		console.log(params.data.name, params.data.value, params.dataIndex);
 		// Checks if scene is ready for a transition (i.e. elements from previous transition are done fading):
 		if (readyToTransition){
+			// Cancels all animations:
+			breakAll();
+			// Revives tweet generation:
+			setTimeout(function() {
+				generateTweets();
+				var f = generateTweets;
+				window.setInterval(f, tweetInterval);
+			}, tweetInterval*0.33);
 			// By default, background will fade out as defined in header:
 			var customFadeOut = backgroundFadeTime;
 			// Defines next view:
@@ -144,7 +150,7 @@ function generateCloud(shape) {
 			} else if (currentShape == "heart"){
 				nextShape = "bombing";
 			} else if (currentShape == "stop_sign"){
-				nextShape = "bombing";
+				nextShape = "machine_gun";
 			} else if (currentShape == "syria_map"){
 				nextShape = "heart";
 			} else if (currentShape == "family"){
@@ -191,7 +197,6 @@ function generateCloud(shape) {
 
 // Loads the *next* background, taking care of the fade transition:
 function changeBackground(next, customFadeOut) {
-
 	console.log("Changing to " + next);
 
 	// Destroys previous background:
@@ -201,8 +206,10 @@ function changeBackground(next, customFadeOut) {
 		// Additional commands:
 		if (next != "machine_gun") {
 			destroyRain();
-		} else if ((next != "family") && (next != "stop_sign")){
+		} else if (next != "family"){
 			destroyGarden();
+		} else if (next != "stop_sign"){
+			destroyBuildings();
 		}
 	});
 

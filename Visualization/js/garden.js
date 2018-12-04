@@ -3,10 +3,11 @@ var c_garden;
 var w_garden;
 var h_garden;
 
-var particles_garden = {};
-var particleIndex = 0;
-var particleNum = 30;
+var particles_garden;
+var particleIndex;
+var particleNum;
 
+var gardenActive;
 
 
 function particle_garden() {
@@ -64,9 +65,11 @@ function drawParticle_garden() {
 
 function loop_garden() {
 
-  window.requestAnimFrame(loop_garden);
+  	if (gardenActive == true){
+  		window.requestAnimFrame(loop_garden);
+  	}
 
-  drawParticle_garden();
+  	drawParticle_garden();
 }
 
 
@@ -76,6 +79,12 @@ function createGarden(){
 	c_garden = canvas_garden.getContext("2d");
 	w_garden = canvas_garden.width = window.innerWidth*2;
 	h_garden = canvas_garden.height = window.innerHeight*2;
+
+	particles_garden = {};
+	particleIndex = 0;
+	particleNum = 20;
+
+	gardenActive = true;
 
 	window.requestAnimFrame = (function() {
 	  return window.requestAnimationFrame ||
@@ -92,5 +101,21 @@ function createGarden(){
 }
 
 function destroyGarden(){
-	window.cancelAnimationFrame(window.requestAnimFrame);
+	gardenActive = false;
+}
+
+function breakAll(){
+	window.cancelRequestAnimFrame = ( function() {
+    return window.cancelAnimationFrame          ||
+        window.webkitCancelRequestAnimationFrame    ||
+        window.mozCancelRequestAnimationFrame       ||
+        window.oCancelRequestAnimationFrame     ||
+        window.msCancelRequestAnimationFrame        ||
+        clearTimeout
+} )();
+
+for (var i = 1; i < 99999; i++) {
+  window.clearInterval(i);
+  window.cancelRequestAnimFrame(i);
+}
 }

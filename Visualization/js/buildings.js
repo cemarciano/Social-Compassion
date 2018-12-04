@@ -4,7 +4,7 @@ var ctx;
 var fps;
 var W;
 var H;
-var running;
+var buildingsActive;
 var raf;
 
 function randint(n) { return floor(n*random()); }
@@ -12,17 +12,12 @@ function randint(n) { return floor(n*random()); }
 /*---------------------------------------------------------------------------*/
 
 function loop_buildings(t) {
-  if (running) raf(loop_buildings);
+  if (buildingsActive) raf(loop_buildings);
   buildings_update();
   buildings_draw();
 }
 
 
-document.onkeydown = function(e) {
-  if (e.which !== 27) return;
-  running = false;
-  setTimeout(buildings_reset, 50);
-};
 
 /*---------------------------------------------------------------------------*/
 
@@ -107,7 +102,7 @@ function buildings_draw() {
     a.buildings_draw();
     b.buildings_draw();
   }
-  if (alldead) running = false;
+  if (alldead) buildingsActive = false;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -127,7 +122,11 @@ function createBuildings(){
 	  .split('|')
 	  .forEach(function(p) { this[p] = Math[p]; });
 
-	running = true;
+	buildingsActive = true;
 	buildings_reset();
 	raf(loop_buildings);
+}
+
+function destroyBuildings(){
+	buildingsActive = false;
 }
