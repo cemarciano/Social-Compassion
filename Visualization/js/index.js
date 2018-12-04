@@ -287,12 +287,11 @@ function generateTweets(){
 	// Generates font style (a number between 1 and 5):
 	var fontId = Math.floor((Math.random() * 5) + 1);
 	// Selects font size:
-	fontId = 4;
-	var fontSize = 2.08;
-	if (fontId == 3){
-		fontSize = 2.6;
-	} else if (fontId == 4){
-		fontSize = 1.1;
+	var fontSize = 1.1;
+	if (fontId == 1){
+		fontSize = 1.8;
+	} else if (fontId = 2){
+		fontSize = 1.8;
 	}
 	// Generates which pre-determined area of the screen to put the tweet (a number between 1 and 4):
 	posId = Math.floor((Math.random() * 4) + 1);
@@ -320,7 +319,7 @@ function generateTweets(){
 		top = 88;
 	} else if ((posId == 3) && (posTabu == "right")){
 	   left = 63;
-	   top = 80;
+	   top = 82;
 	   width = 35;
 	} else if ((posId == 4) && (posTabu == "right")){
 		left = 5;

@@ -82,12 +82,14 @@ body {
 #bombing {
 	width: 98.96vw;
 	height: 92.59vh;
+	margin-top: 4vh;
 }
 
 #heart {
 	width: 62.5vw;
 	height: 92.6vh;
 	margin-left: 18.2vw;
+	margin-top: 3vh;
 }
 
 #house {
@@ -100,11 +102,12 @@ body {
 	width: 62.5vw;
 	height: 83.3vh;
 	margin-left: 18.2vw;
+	margin-top: 5vh;
 }
 
 #stop_sign {
 	margin-left: 24.48vw;
-	margin-top: 4.63vh;
+	margin-top: 11vh;
 	width: 52.1vw;
 	height: 74.1vh;
 	transform: scale(1.3);
@@ -116,6 +119,7 @@ body {
 	width: 62.5vw;
 	height: 92.6vh;
 	margin-left: 20.83vw;
+	margin-top: 2vh;
 }
 
 
