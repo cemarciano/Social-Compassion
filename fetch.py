@@ -7,6 +7,7 @@ import sys
 import codecs
 import json
 import copy
+import re
 
 
 
@@ -47,7 +48,7 @@ class Fetch():
 			# Loops through obtained tweets:
 			for tweet in list_of_tweets:
 
-				# Treats newline and hashtags:
+				# Treats newline:
 				tweet.text = tweet.text.replace('\n', ' ').replace('\r', ' ')
 
 				# Checks if printing is enabled:
@@ -113,16 +114,31 @@ class Fetch():
 
 
 	# Function to save most used words into a JSON file. calculateMostUsed() must have been called before.
-	def jsonMostUsed(self):
+	def jsonMostUsed(self, numOfTweets):
 		# Prepares main JSON list:
 		list = []
 		# Prepares list of words:
 		words = []
 		# Iterates through frequencies:
 		for word in self.mostUsed:
+			# List of tweets containing this word:
+			tweets = []
+			# Prepares regex:
+			regStr = r'\b%s\b' % word
+			regx = re.compile(regStr, re.IGNORECASE)
+			# Iterates through database to retrieve tweets containing this word, limited by numOfTweets:
+			for tweet in self.collection.find({'text': {'$regex':regx}}).limit(numOfTweets):
+				# Treats tweet links:
+				msg = tweet["text"]
+				msg = msg.replace("http", " http")
+				msg = " ".join(filter(lambda x:'http' not in x, msg.split()))
+				msg = " ".join(filter(lambda x:'.com' not in x, msg.split()))
+				tweets.append(msg)
+			# Builds object to later become a JSON:
 			obj = {
 				"name" : word,
-				"value" : self.mostUsed[word]
+				"value" : self.mostUsed[word],
+				"tweets" : tweets
 			}
 			# Appends object to list:
 			words.append(obj)
@@ -136,6 +152,11 @@ class Fetch():
 			json.dump(list, fp)
 
 
+	def getSamples(self, word):
+		# Prepares list of tweet samples:
+		samples = []
+		for tweet in self.collection.find({'text': {'$regex':word}}).limit(5):
+			print(tweet["text"])
 
 	# Function to retrieve a dictionary with the most used words in the db collection.
 	def calculateMostUsed(self, count=5, smooth=0):

@@ -28,12 +28,18 @@ body {
 .tweet {
 	color: white;
 	font-size: 1.56vw;
+	width: 50vw;
 	font-family: "Font8";
+	text-align: center;
 	user-select: none;
 	z-index: 80;
 	-webkit-animation: tweet 12s linear 1 forwards;
 	animation: tweet 12s linear 1 forwards;
 	position: absolute;
+}
+
+.chosen-word {
+	color: #ff3a4a;
 }
 
 .bg {
