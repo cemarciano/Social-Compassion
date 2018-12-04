@@ -8,7 +8,7 @@ if __name__ == '__main__':
 
 	# Performs queries:
 	fetchy = Fetch()
-	#fetchy.fetchTweets("prayforsyria", 300000, begindate=dt.date(2011,1,21), enddate=dt.date.today())
+	fetchy.fetchTweets("prayforsyria", 1000, begindate=dt.date(2011,1,21), enddate=dt.date.today())
 
 	# Defines words that we want to use in the visualization. All other words will be ignored:
 	chosenWords = ["Syria", "people", "you", "all", "no", "we", "world", "will", "about", "innocent",
@@ -37,7 +37,7 @@ if __name__ == '__main__':
 	# Calculates most used words in tweets:
 	fetchy.calculateMostUsed(700)#, smooth=12000)
 
-	# Filters out unwanted words:
+	# Recovers only wanted words:
 	fetchy.filterMostUsed(chosenWords)
 
 	# Saves data to JSON file:
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 	frequenciesDict = fetchy.getMostUsed();
 
 	# Initializes Word Cloud using the frequency dictionary:
-	disp = Display(frequenciesDict, maskPath="Visualization/machine_gun.png")
+	disp = Display(frequenciesDict, maskPath="Visualization/img/machine_gun.png")
 
 	# Creates an image:
-	disp.produceImage("Visualization/syria.png")
+	#disp.produceImage("Visualization/syria.png")

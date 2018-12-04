@@ -71,9 +71,9 @@ class Fetch():
 				# Attempts to save in database:
 				try:
 					self.collection.insert(tweetDict)
-				except:
-					print("Database insertion failed.")
-					pass
+				except pymongo.errors.PyMongoError as e:
+					print("Database insertion failed: %s" % e)
+
 
 
 	# Function to retrieve a dictionary with most used words. calculateMostUsed() must have been called before.
@@ -114,8 +114,10 @@ class Fetch():
 
 	# Function to save most used words into a JSON file. calculateMostUsed() must have been called before.
 	def jsonMostUsed(self):
-		# Prepares list of objects:
+		# Prepares main JSON list:
 		list = []
+		# Prepares list of words:
+		words = []
 		# Iterates through frequencies:
 		for word in self.mostUsed:
 			obj = {
@@ -123,7 +125,12 @@ class Fetch():
 				"value" : self.mostUsed[word]
 			}
 			# Appends object to list:
-			list.append(obj)
+			words.append(obj)
+		mainObj = {
+			"country": "syria",
+			"frequencies": words
+		}
+		list.append(mainObj)
 		# Saves to file:
 		with open('syria.json', 'w') as fp:
 			json.dump(list, fp)
