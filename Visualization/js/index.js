@@ -262,7 +262,6 @@ function changeBackground(next, customFadeOut) {
 
 
 function generateTweets(){
-	console.log(posTabu);
 	// If no word was chosen yet, do nothing:
 	if (chosenWordTweets == undefined){
 		return;
@@ -271,14 +270,6 @@ function generateTweets(){
 	var tweetId = Math.floor((Math.random() * 20) + 1);
 	// Retrieves chosen tweet:
 	var tweetText = chosenWordTweets[tweetId-1];
-	// Colors chosenWord in the tweet text:
-	//var tweetText = tweetText.split(' ').map(function(word) {
-	//	if (chosenWord.indexOf(word.toLowerCase()) !== -1) {
-	//		return '<span class="chosen-word">' + word + '</span>';
-	//	} else {
-	//		return word;
-	//	}
-	//}).join(' ');
 	// Creates elements:
 	var tweetDiv = $("<div></div>").attr("class", "tweet");
 	var tweetSpan = $("<span></span>");
@@ -313,17 +304,17 @@ function generateTweets(){
 		width = 30;
 	} else if ((posId == 1) && (posTabu == "right")){
 		left = 9;
-		top = 88;
+		top = 87;
 	} else if ((posId == 2) && (posTabu == "right")){
 		left = 35;
-		top = 88;
+		top = 86;
 	} else if ((posId == 3) && (posTabu == "right")){
 	   left = 63;
-	   top = 82;
+	   top = 83;
 	   width = 35;
 	} else if ((posId == 4) && (posTabu == "right")){
 		left = 5;
-		top = 84;
+		top = 85;
 		width = 40;
 	}
 	// Switches posTabu:
