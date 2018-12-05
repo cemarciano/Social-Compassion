@@ -4,6 +4,7 @@ var musicFadeTime = 6000;				// Amount in ms for music to fade
 var backgroundFadeTime = 3000;			// Amount in ms for background to fade
 var tweetInterval = 6000;				// Interval in ms for tweets to pop on screen
 var music = {};							// Holds Howl objects, where music[shape] refers to the object of that shape
+var playMusicAtStart = false;			// Boolean, true if music should be played on startup, false if paused
 var readyToTransition = false;			// Variable to keep track if all elements are done displaying so scene may transition to next view
 window.posTabu = "left";				// Variable to hold last tweet generated position (so it wont be repeated)
 var tweetData;							// Holds the big Json file
@@ -25,13 +26,20 @@ $(document).ready(function() {
 	// Loads data for the first time:
 	loadData();
 	changeBackground(currentShape);
-	// Sets up tweet generation callback:
-	console.log(posTabu);
+
+	// Sets functionality of audio toggle button:
+	$("#audio-toggle").click(function(){
+		if (music[currentShape].playing() == false){
+			music[currentShape].play();
+		} else {
+			music[currentShape].pause();
+		}
+	});
 
 	// Initializes music:
 	shapes.forEach(function(shape){
 		var autoplay;
-		(shape == currentShape) ? autoplay = true : autoplay = false;
+		((shape == currentShape) && (playMusicAtStart == true))? autoplay = true : autoplay = false;
 		music[shape] = new Howl({
 			src: ['Music/' + shape + '.mp3'],
 			autoplay: autoplay,
@@ -346,12 +354,14 @@ function generateTweets(){
 
 // Loads the *next* song, taking care of the fade transition:
 function changeSongs(next){
-	// Seeks new music to synch with current:
-	music[next].play();
-	music[next].seek(music[currentShape].seek());
-	// Fades current music:
-	music[currentShape].fade(1, 0, musicFadeTime);
-	// Fades new music:
-	music[next].fade(0, 1, musicFadeTime);
-
+	// Only acts if music is playing:
+	if (music[currentShape].playing() == true){
+		// Seeks new music to synch with current:
+		music[next].play();
+		music[next].seek(music[currentShape].seek());
+		// Fades current music:
+		music[currentShape].fade(1, 0, musicFadeTime);
+		// Fades new music:
+		music[next].fade(0, 1, musicFadeTime);
+	}
 }

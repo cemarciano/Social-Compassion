@@ -25,6 +25,19 @@ body {
     animation: breathing 12s ease-out infinite normal;*/
 }
 
+#audio-toggle {
+	position: absolute;
+	top: 94vh;
+	left: 1vw;
+	background-image: url("../../audio.png");
+	background-size: cover;
+	cursor: pointer;
+	width: 1.8vw;
+	height: 1.8vw;
+	z-index: 100;
+	opacity: 0.7;
+}
+
 .tweet {
 	color: white;
 	font-size: 1.56vw;
