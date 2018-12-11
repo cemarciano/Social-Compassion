@@ -24,3 +24,8 @@
   font-family: 'Font5';
   src: URL('fonts/comic_khazi.otf') format('opentype');
 }
+
+@font-face {
+  font-family: 'Intro';
+  src: URL('fonts/traveling_typewriter.ttf') format('truetype');
+}

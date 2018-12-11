@@ -24,17 +24,7 @@ var shapes = [							// List of possible shapes
 $(document).ready(function() {
 
 	// Loads data for the first time:
-	loadData();
-	changeBackground(currentShape);
-
-	// Sets functionality of audio toggle button:
-	$("#audio-toggle").click(function(){
-		if (music[currentShape].playing() == false){
-			music[currentShape].play();
-		} else {
-			music[currentShape].pause();
-		}
-	});
+	changeBackground("intro_page");
 
 	// Initializes music:
 	shapes.forEach(function(shape){
@@ -57,6 +47,21 @@ $(document).ready(function() {
 });
 
 
+function startUp(){
+	// Loads data for the first time:
+	readyToTransition = false;
+	loadData();
+	changeBackground(currentShape, 1000);
+	// Sets functionality of audio toggle button:
+	$("#audio-toggle").fadeIn(1000);
+	$("#audio-toggle").click(function(){
+		if (music[currentShape].playing() == false){
+			music[currentShape].play();
+		} else {
+			music[currentShape].pause();
+		}
+	});
+}
 
 
 // Wordcloud handler:
@@ -98,7 +103,7 @@ function loadData(){
 		// Saves data to global variable:
 		tweetData = data[0];
 		// Generates first wordcloud:
-		generateCloud("machine_gun");
+		generateCloud(currentShape);
 	});
 }
 
@@ -212,7 +217,7 @@ function changeBackground(next, customFadeOut) {
 		// Destroys old background:
 		$("#background").remove();
 		// Additional commands:
-		if (next != "machine_gun") {
+		if ((next != "machine_gun") && (next != "intro_page")) {
 			destroyRain();
 		} else if (next != "family"){
 			destroyGarden();
@@ -246,7 +251,28 @@ function changeBackground(next, customFadeOut) {
 	}
 
 	// Checks for additional actions:
-	if (next == "machine_gun"){
+	if (next == "intro_page"){
+		var canvas = $("<canvas></canvas>").attr("id", "canvas");
+		var logo = $("<img></img>").attr("id", "logo").attr("src", "Visualization/img/social_compassion_logo.png");
+		var intro_subtitle = $("<span></span>").attr("id", "intro-subtitle").text(
+			"A #PrayForSyria Visualization"
+		);
+		var intro_text = $("<span></span>").attr("id", "intro-text").text(
+			"On March 26th, 2011, a series of popular protests demanding democratic reforms would start a new chapter in syrian history." +
+			" To this day, the war rages on, leaving a trail of death and misery. This visualization collects 222,180 tweets, from March 2011 to December 2018," +
+			" in the form of wordclouds, where the largest words are the ones that appear the most. Clicking on a word presents a new visualization and" +
+			" showcases tweets containing the chosen word. In total, 6 visualizations and 247 words are available to be explored, featuring sound effects" +
+			" from Pink Floyd's Comfortably Numb."
+		);
+		var intro_button = $("<a></a>").attr("id", "intro-button").text("Start").click(function(){
+			if (readyToTransition == true){
+				startUp();
+			}
+		});
+		nextBackground.append([canvas, logo, intro_subtitle, intro_text, intro_button]);
+		createRain();
+	} else if (next == "machine_gun"){
+		var oldCanvas = $("canvas").attr("id", "old-canvas");
 		var canvas = $("<canvas></canvas>").attr("id", "canvas");
 		nextBackground.append(canvas);
 		createRain();
@@ -261,11 +287,11 @@ function changeBackground(next, customFadeOut) {
 		nextBackground.append([canvas1, canvas2]);
 		createVines();
 	} else if (next == "stop_sign"){
-		var canvas = $("<canvas></canvas>").attr("id", "canvas-city");
+		var canvas = $("<canvas></canvas>").attr("class", "canvas-city").attr("id", "canvas-city");
 		nextBackground.append(canvas);
 		createBuildings();
 	} else if (next == "family"){
-		var canvas = $("<canvas></canvas>").attr("id", "canvas-garden");
+		var canvas = $("<canvas></canvas>").attr("class", "canvas-garden").attr("id", "canvas-garden");
 		nextBackground.append(canvas);
 		createGarden();
 	} else if (next == "syria_map"){

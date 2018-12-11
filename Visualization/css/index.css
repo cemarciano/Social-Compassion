@@ -27,6 +27,7 @@ body {
 
 #audio-toggle {
 	position: absolute;
+	display: none;
 	top: 94vh;
 	left: 1vw;
 	background-image: url("../../audio.png");
@@ -36,6 +37,69 @@ body {
 	height: 1.8vw;
 	z-index: 100;
 	opacity: 0.7;
+}
+
+#logo {
+	position: absolute;
+	top: 13vh;
+	left: 35.5vw;
+	width: 30vw;
+	height: 20vh;
+	z-index: 100;
+}
+
+#intro-subtitle {
+	position: absolute;
+	font-size: 1.2vw;
+	font-family: "Font5";
+	color: white;
+	left: 42.4vw;
+	top: 35vh;
+	opacity: 0.8;
+	user-select: none;
+}
+
+#intro-text {
+	position: absolute;
+	font-size: 1.2vw;
+	font-family: "Intro";
+	color: white;
+	left: 25vw;
+	top: 47vh;
+	width: 50vw;
+	opacity: 0.8;
+	user-select: none;
+}
+
+#intro-button {
+	position: absolute;
+	left: 46vw;
+	top: 80vh;
+	background-color: #d85049;
+	text-shadow: 0 0.05vw 0 rgba(0,0,0,0.5);
+	color: #FFF;
+	text-transform: uppercase;
+	user-select: none;
+	cursor: pointer;
+	letter-spacing: 0.1vw;
+	font-size: 1vw;
+	font-family: "Intro";
+	padding: 1vh 2vw;
+	border-radius: 0.26vw;
+	-moz-border-radius: 0.26vw;
+	-webkit-border-radius: 0.26vw;
+	border: 0.05vw solid rgba(0,0,0,0.3);
+	border-bottom-width: 0.156vw;
+}
+
+#intro-button:hover {
+	background-color: #bf362f;
+	border-color: rgba(0,0,0,0.5);
+}
+
+#intro-button:active {
+	background-color: #932722;
+	border-color: rgba(0,0,0,0.9);
 }
 
 .tweet {
@@ -57,6 +121,7 @@ body {
 
 .bg {
     z-index: 40;
+	text-align: center;
 }
 
 .shape {
@@ -67,11 +132,11 @@ body {
 	display: none;
 }
 
-#canvas-city {
+.canvas-city {
 	opacity: 0.17;
 }
 
-#canvas-garden {
+.canvas-garden {
 	opacity: 0.3;
 }
 
