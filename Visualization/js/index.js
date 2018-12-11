@@ -258,7 +258,7 @@ function changeBackground(next, customFadeOut) {
 			"A #PrayForSyria Visualization"
 		);
 		var intro_text = $("<span></span>").attr("id", "intro-text").text(
-			"On March 26th, 2011, a series of popular protests demanding democratic reforms would start a new chapter in syrian history." +
+			"On March 15th, 2011, a series of popular protests demanding democratic reforms would start a new chapter in syrian history." +
 			" To this day, the war rages on, leaving a trail of death and misery. This visualization collects 222,180 tweets, from March 2011 to December 2018," +
 			" in the form of wordclouds, where the largest words are the ones that appear the most. Clicking on a word presents a new visualization and" +
 			" showcases tweets containing the chosen word. In total, 6 visualizations and 247 words are available to be explored, featuring sound effects" +
