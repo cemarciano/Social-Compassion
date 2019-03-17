@@ -4,7 +4,6 @@ var musicFadeTime = 6000;				// Amount in ms for music to fade
 var backgroundFadeTime = 3000;			// Amount in ms for background to fade
 var tweetInterval = 6000;				// Interval in ms for tweets to pop on screen
 var music = {};							// Holds Howl objects, where music[shape] refers to the object of that shape
-var playMusicAtStart = false;			// Boolean, true if music should be played on startup, false if paused
 var readyToTransition = false;			// Variable to keep track if all elements are done displaying so scene may transition to next view
 window.posTabu = "left";				// Variable to hold last tweet generated position (so it wont be repeated)
 var tweetData;							// Holds the big Json file
@@ -28,11 +27,9 @@ $(document).ready(function() {
 
 	// Initializes music:
 	shapes.forEach(function(shape){
-		var autoplay;
-		((shape == currentShape) && (playMusicAtStart == true))? autoplay = true : autoplay = false;
 		music[shape] = new Howl({
 			src: ['Music/' + shape + '.mp3'],
-			autoplay: autoplay,
+			autoplay: false,
 			loop: true,
 			preload: true,
 			onfade: function(){
@@ -51,6 +48,11 @@ function startUp(){
 	// Loads data for the first time:
 	readyToTransition = false;
 	loadData();
+	// Checks if "enable music" checkbox is checked:
+	if ($("#music-checkbox").is(":checked") == true) {
+		// Starts music:
+		music[currentShape].play();
+	}
 	changeBackground(currentShape, 1000);
 	// Sets functionality of audio toggle button:
 	$("#audio-toggle").fadeIn(1000);
@@ -252,24 +254,30 @@ function changeBackground(next, customFadeOut) {
 
 	// Checks for additional actions:
 	if (next == "intro_page"){
+		// Builds intro screen:
 		var canvas = $("<canvas></canvas>").attr("id", "canvas");
 		var logo = $("<img></img>").attr("id", "logo").attr("src", "Visualization/img/social_compassion_logo.png");
 		var intro_subtitle = $("<span></span>").attr("id", "intro-subtitle").text(
 			"A #PrayForSyria Visualization"
 		);
 		var intro_text = $("<span></span>").attr("id", "intro-text").text(
-			"On March 15th, 2011, a series of popular protests demanding democratic reforms would start a new chapter in syrian history." +
+			"On March 15th, 2011, a series of popular protests demanding democratic reforms would start a new chapter in Syrian history." +
 			" To this day, the war rages on, leaving a trail of death and misery. This visualization collects 222,180 tweets, from March 2011 to December 2018," +
 			" in the form of wordclouds, where the largest words are the ones that appear the most. Clicking on a word presents a new visualization and" +
 			" showcases tweets containing the chosen word. In total, 6 visualizations and 247 words are available to be explored, featuring sound effects" +
 			" from Pink Floyd's Comfortably Numb."
 		);
+		var checkbox = $("<label></label>").attr("class", "checkbox").html("Enable music").append([
+			// Appends input checkbox element:
+			$("<input>").attr("type", "checkbox").attr("checked", "checked").attr("id", "music-checkbox"),
+			$("<span></span>").attr("class", "checkmark")
+		]);
 		var intro_button = $("<a></a>").attr("id", "intro-button").text("Start").click(function(){
 			if (readyToTransition == true){
 				startUp();
 			}
 		});
-		nextBackground.append([canvas, logo, intro_subtitle, intro_text, intro_button]);
+		nextBackground.append([canvas, logo, intro_subtitle, intro_text, checkbox, intro_button]);
 		createRain();
 	} else if (next == "machine_gun"){
 		var oldCanvas = $("canvas").attr("id", "old-canvas");

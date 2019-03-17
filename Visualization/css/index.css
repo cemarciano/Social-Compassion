@@ -41,7 +41,7 @@ body {
 
 #logo {
 	position: absolute;
-	top: 13vh;
+	top: 9vh;
 	left: 35.5vw;
 	width: 30vw;
 	height: 20vh;
@@ -54,7 +54,7 @@ body {
 	font-family: "Font5";
 	color: white;
 	left: 42.4vw;
-	top: 35vh;
+	top: 31vh;
 	opacity: 0.8;
 	user-select: none;
 }
@@ -65,7 +65,7 @@ body {
 	font-family: "Intro";
 	color: white;
 	left: 25vw;
-	top: 47vh;
+	top: 41vh;
 	width: 50vw;
 	opacity: 0.8;
 	user-select: none;
@@ -74,7 +74,7 @@ body {
 #intro-button {
 	position: absolute;
 	left: 46vw;
-	top: 80vh;
+	top: 84vh;
 	background-color: #d85049;
 	text-shadow: 0 0.05vw 0 rgba(0,0,0,0.5);
 	color: #FFF;
@@ -266,4 +266,78 @@ body {
     transform: scale(1.2);
 	opacity: 0;
   }
+}
+
+/************************************/
+/*** Checkbox for toggling audio: ***/
+/************************************/
+
+/* Customize the label (the container) */
+.checkbox {
+  display: block;
+  position: absolute;
+  left: 44.6vw;
+  top: 74vh;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 1.2vw;
+  font-family: "Intro";
+  color: white;
+  opacity: 0.8;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1.35vw;
+  width: 1.35vw;
+  background-color: #ffb1ad;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox:hover input ~ .checkmark {
+  background-color: #db847f;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox input:checked ~ .checkmark {
+  background-color: #d85049;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox .checkmark:after {
+  left: 0.47vw;
+  top: 0.26vw;
+  width: 0.26vw;
+  height: 0.52vw;
+  border: solid white;
+  border-width: 0 0.16vw 0.16vw 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
