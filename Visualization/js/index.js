@@ -269,15 +269,19 @@ function changeBackground(next, customFadeOut) {
 		);
 		var checkbox = $("<label></label>").attr("class", "checkbox").html("Enable music").append([
 			// Appends input checkbox element:
-			$("<input>").attr("type", "checkbox").attr("checked", "checked").attr("id", "music-checkbox"),
+			$("<input>").attr("type", "checkbox").attr("checked", false).attr("id", "music-checkbox"),
 			$("<span></span>").attr("class", "checkmark")
 		]);
-		var intro_button = $("<a></a>").attr("id", "intro-button").text("Start").click(function(){
+		var intro_button = $("<a></a>").attr("id", "intro-button").attr("class", "option-button").text("Start").click(function(){
 			if (readyToTransition == true){
 				startUp();
 			}
 		});
-		nextBackground.append([canvas, logo, intro_subtitle, intro_text, checkbox, intro_button]);
+		var tech_report_button = $("<a></a>").attr("id", "tech-report-button").attr("class", "option-button").text("Read Tech Report").click(function(){
+			var win = window.open("Tech_Report.pdf", '_blank');
+			win.focus();
+		});
+		nextBackground.append([canvas, logo, intro_subtitle, intro_text, checkbox, intro_button, tech_report_button]);
 		createRain();
 	} else if (next == "machine_gun"){
 		var oldCanvas = $("canvas").attr("id", "old-canvas");

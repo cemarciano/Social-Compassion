@@ -41,7 +41,7 @@ body {
 
 #logo {
 	position: absolute;
-	top: 9vh;
+	top: 7vh;
 	left: 35.5vw;
 	width: 30vw;
 	height: 20vh;
@@ -54,7 +54,7 @@ body {
 	font-family: "Font5";
 	color: white;
 	left: 42.4vw;
-	top: 31vh;
+	top: 29vh;
 	opacity: 0.8;
 	user-select: none;
 }
@@ -65,31 +65,34 @@ body {
 	font-family: "Intro";
 	color: white;
 	left: 25vw;
-	top: 41vh;
+	top: 37vh;
 	width: 50vw;
 	opacity: 0.8;
 	user-select: none;
 }
 
-#intro-button {
-	position: absolute;
-	left: 46vw;
-	top: 84vh;
-	background-color: #d85049;
+.option-button {
 	text-shadow: 0 0.05vw 0 rgba(0,0,0,0.5);
 	color: #FFF;
 	text-transform: uppercase;
 	user-select: none;
 	cursor: pointer;
 	letter-spacing: 0.1vw;
-	font-size: 1vw;
 	font-family: "Intro";
-	padding: 1vh 2vw;
 	border-radius: 0.26vw;
 	-moz-border-radius: 0.26vw;
 	-webkit-border-radius: 0.26vw;
 	border: 0.05vw solid rgba(0,0,0,0.3);
 	border-bottom-width: 0.156vw;
+}
+
+#intro-button{
+	position: absolute;
+	left: 46vw;
+	top: 78vh;
+	font-size: 1.4vw;
+	padding: 1.1vh 2.3vw;
+	background-color: #d85049;
 }
 
 #intro-button:hover {
@@ -99,6 +102,25 @@ body {
 
 #intro-button:active {
 	background-color: #932722;
+	border-color: rgba(0,0,0,0.9);
+}
+
+#tech-report-button{
+	position: absolute;
+	left: 43.8vw;
+	top: 89vh;
+	padding: 0.7vh 1.7vw;
+	font-size: 0.9vw;
+	background-color: #9e7f7d;
+}
+
+#tech-report-button:hover {
+	background-color: #a76966;
+	border-color: rgba(0,0,0,0.5);
+}
+
+#tech-report-button:active {
+	background-color: #864e4c;
 	border-color: rgba(0,0,0,0.9);
 }
 
@@ -276,8 +298,8 @@ body {
 .checkbox {
   display: block;
   position: absolute;
-  left: 44.6vw;
-  top: 74vh;
+  left: 45.4vw;
+  top: 70vh;
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
