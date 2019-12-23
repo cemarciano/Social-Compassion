@@ -4,6 +4,10 @@ var currentRain = null;
 function createRain(){
 
 	var canvas = $('#canvas')[0];
+	if (canvas == null){
+		return;
+	}
+
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 
@@ -77,6 +81,7 @@ function destroyRain(){
 // Makes rain adjust to window resizes:
 window.onresize = function() {
 	if (currentRain != null){
+		destroyRain();
 		createRain();
 	}
 }

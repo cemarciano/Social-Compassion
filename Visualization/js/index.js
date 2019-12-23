@@ -1,7 +1,7 @@
 // Global variables
 var currentShape = "machine_gun";		// Current shape being shown
-var musicFadeTime = 6000;				// Amount in ms for music to fade
-var backgroundFadeTime = 3000;			// Amount in ms for background to fade
+var musicFadeTime = 5000;				// Amount in ms for music to fade
+var backgroundFadeTime = 2200;			// Amount in ms for background to fade
 var tweetInterval = 6000;				// Interval in ms for tweets to pop on screen
 var music = {};							// Holds Howl objects, where music[shape] refers to the object of that shape
 var readyToTransition = false;			// Variable to keep track if all elements are done displaying so scene may transition to next view
@@ -63,6 +63,14 @@ function startUp(){
 			music[currentShape].pause();
 		}
 	});
+	// Displays hint text:
+	var hint_text = $("<span></span>").hide().attr("id", "hint-text").text(
+		"Hint: To continue, please click on a word."
+	);
+	$("#next-background").append(hint_text);
+	setTimeout(function(){
+		hint_text.fadeIn(1000);
+	}, 5000);
 }
 
 
@@ -141,7 +149,7 @@ function generateCloud(shape) {
 
 	// Set wordcloud click callback
 	wordcloud.on('click', function (params) {
-		console.log(params.data.name, params.data.value, params.dataIndex);
+		//console.log(params.data.name, params.data.value, params.dataIndex);
 		// Checks if scene is ready for a transition (i.e. elements from previous transition are done fading):
 		if (readyToTransition){
 			// Cancels all animations:
@@ -212,7 +220,7 @@ function generateCloud(shape) {
 
 // Loads the *next* background, taking care of the fade transition:
 function changeBackground(next, customFadeOut) {
-	console.log("Changing to " + next);
+	//console.log("Changing to " + next);
 
 	// Destroys previous background:
     $("#background").fadeOut(customFadeOut, function(){
@@ -326,7 +334,7 @@ function generateTweets(){
 	// Creates elements:
 	var tweetDiv = $("<div></div>").attr("class", "tweet");
 	var tweetSpan = $("<span></span>");
-	var re = new RegExp(chosenWord, "gi");
+	var re = new RegExp("\\b" + chosenWord + "\\b", "gi");
 	tweetSpan.html(tweetText.replace(re, '<span class="chosen-word">$&</span>'));
 	// Generates font style (a number between 1 and 5):
 	var fontId = Math.floor((Math.random() * 5) + 1);

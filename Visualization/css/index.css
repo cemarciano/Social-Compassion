@@ -124,6 +124,18 @@ body {
 	border-color: rgba(0,0,0,0.9);
 }
 
+#hint-text {
+	position: absolute;
+	font-size: 1.2vw;
+	font-family: "Intro";
+	color: white;
+	left: 25vw;
+	top: 87vh;
+	width: 50vw;
+	opacity: 0.8;
+	user-select: none;
+}
+
 .tweet {
 	color: white;
 	font-size: 1.56vw;
@@ -298,7 +310,7 @@ body {
 .checkbox {
   display: block;
   position: absolute;
-  left: 45.4vw;
+  left: 45.5vw;
   top: 70vh;
   padding-left: 35px;
   margin-bottom: 12px;
